@@ -26,9 +26,6 @@ option {
   color: inherit;
 }
 
-//a:visited {
-//  color: inherit;
-//}
 
 body {
   margin: 0;
@@ -36,5 +33,5 @@ body {
   font-family: var(--font-family-primary);
   line-height: var(--line-height-s);
   color: var(--color-dark-600);
-  background-color: var(--color-dark-500);
+  background-color: var(--color-dark-100);
 }

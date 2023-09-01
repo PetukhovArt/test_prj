@@ -7,7 +7,7 @@ import { useDebounce } from "use-debounce";
 import GitHubStore from "@/app/store.ts";
 
 export const SearchBar = () => {
-  const { filterUsers } = GitHubStore;
+  const { filterUsers, users } = GitHubStore;
   const [searchValue, setSearchValue] = useState<string>("");
   const [debouncedValue] = useDebounce(searchValue, 500);
   const changeSearchHandler = (
@@ -16,9 +16,11 @@ export const SearchBar = () => {
     setSearchValue(e.target.value);
   };
 
-  useEffect(() => {
-    filterUsers(debouncedValue);
-  }, [debouncedValue]);
+  // useEffect(() => {
+  //   if (users && users.length > 1) {
+  //     filterUsers(debouncedValue);
+  //   }
+  // }, [debouncedValue]);
 
   return (
     <Paper
@@ -27,9 +29,9 @@ export const SearchBar = () => {
         p: "2px 4px",
         display: "flex",
         alignItems: "center",
-        width: 413,
-        height: 36,
-        marginTop: "8px",
+        width: 320,
+        height: 50,
+        // marginTop: "8px",
       }}
     >
       <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
@@ -37,8 +39,7 @@ export const SearchBar = () => {
       </IconButton>
       <InputBase
         sx={{ ml: 1, flex: 1 }}
-        placeholder="Provide your text..."
-        inputProps={{ "aria-label": "search packs" }}
+        placeholder="Search github login..."
         value={searchValue}
         onChange={changeSearchHandler}
       />

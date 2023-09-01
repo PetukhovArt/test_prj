@@ -4,20 +4,21 @@ import { ProfileType, ReposType, UserType } from "@/api/api.types.ts";
 
 class GitHubStore {
   profile: ProfileType | null = null;
-  following: UserType[] | null = [];
-  repos: ReposType[] | null = [];
-  users: UserType[] | null = [];
-  team: UserType[] | null = [];
+  following: UserType[] = [];
+  repos: ReposType[] = [];
+  users: UserType[] = [];
+  team: UserType[] = [];
   languages = null;
   state: "done" | "pending" | "error" = "done";
 
   constructor() {
-    makeAutoObservable(this);
+    makeAutoObservable(this, {}, { autoBind: true });
+    this.deleteUsers = this.deleteUsers.bind(this);
   }
 
   getProfile = async () => {
-    this.state = "pending";
     try {
+      this.state = "pending";
       const res = await API.fetchProfile();
       runInAction(() => {
         this.profile = res.data;
@@ -30,8 +31,8 @@ class GitHubStore {
     }
   };
   getUserRepos = async () => {
-    this.state = "pending";
     try {
+      this.state = "pending";
       const res = await API.fetchUserRepos();
       runInAction(() => {
         this.repos = res.data;
@@ -44,8 +45,9 @@ class GitHubStore {
     }
   };
   getFollowing = async () => {
-    this.state = "pending";
     try {
+      this.state = "pending";
+
       const res = await API.fetchFollowing();
       runInAction(() => {
         this.following = res.data;
@@ -58,8 +60,9 @@ class GitHubStore {
     }
   };
   getRepoLanguages = async (repoName: string) => {
-    this.state = "pending";
     try {
+      this.state = "pending";
+
       const res = await API.fetchRepoLanguages(repoName);
 
       runInAction(() => {
@@ -74,10 +77,9 @@ class GitHubStore {
   };
 
   getUsers = async () => {
-    this.state = "pending";
     try {
+      this.state = "pending";
       const res = await API.fetchUsers();
-
       runInAction(() => {
         this.users = res.data;
         this.state = "done";
@@ -89,12 +91,26 @@ class GitHubStore {
     }
   };
   filterUsers(value: string) {
-    if (this.users) {
-      this.users = this.users.filter((user) =>
-        user.login.toLowerCase().includes(value.toLowerCase()),
-      );
-    }
+    this.users = this.users.filter((user) =>
+      user.login.toLowerCase().includes(value.toLowerCase()),
+    );
   }
+  addTeamUsers = (newUsers: UserType[]) => {
+    this.team = [...newUsers, ...this.team];
+  };
+  deleteUsers = (newUsers: UserType[]) => {
+    console.log(newUsers);
+    this.users = this.users.filter((user) => !newUsers.includes(user));
+  };
+  addUsers = (newUsers: UserType[]) => {
+    this.users = [...newUsers, ...this.users];
+  };
+  deleteTeamUsers = (newUsers: UserType[]) => {
+    this.team = this.team.filter((user) => !newUsers.includes(user));
+  };
+  teamSort = () => {
+    this.team = this.team.sort((a, b) => a.login.localeCompare(b.login));
+  };
 }
 
 export default new GitHubStore();
