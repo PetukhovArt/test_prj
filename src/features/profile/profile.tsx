@@ -5,7 +5,7 @@ import ProfileStore from "@/store/profile.store.ts";
 import CircularProgress from "@mui/material/CircularProgress";
 import { RepoView } from "@/components/profile/repos-view";
 import { useEffect } from "react";
-import { UserCard } from "@/components/profile/user-card/user-card.tsx";
+import { UserCard } from "@/components/profile/user-card";
 export const Profile = observer(() => {
   const { getProfile, getFollowing, getUserRepos, profile } = ProfileStore;
   useEffect(() => {

@@ -1,1 +1,1 @@
-export * from "src/components/profile/user-card/user-card.tsx";
+export * from "./user-card.tsx";
