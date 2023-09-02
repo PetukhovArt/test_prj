@@ -6,7 +6,7 @@ import ListItemText from "@mui/material/ListItemText";
 import Paper from "@mui/material/Paper";
 import ListItemButton from "@mui/material/ListItemButton";
 import { observer } from "mobx-react";
-import GitHubStore from "@/app/store.ts";
+import TeamStore from "@/store/team.ts";
 
 export type ListType = "team" | "users";
 
@@ -17,16 +17,14 @@ type UsersListProps = {
 };
 export const UsersList = observer(
   ({ checkedFreeUsers, setUserChecked, list }: UsersListProps) => {
-    console.log("freeUsersList render");
-
-    const { users } = GitHubStore;
+    const { filteredUsers } = TeamStore;
 
     return (
       <Paper sx={{ width: 320, height: 400, overflow: "auto" }}>
-        <List dense component="div" role="list">
-          {users.map((user) => {
+        <List>
+          {filteredUsers.map((user) => {
             return (
-              <ListItem divider key={user.id} role="listitem" disablePadding>
+              <ListItem divider key={user.id} disablePadding>
                 <ListItemButton
                   role={undefined}
                   onClick={setUserChecked(user.id, list)}
@@ -39,7 +37,7 @@ export const UsersList = observer(
                       disableRipple
                     />
                   </ListItemIcon>
-                  <ListItemText id={user.id.toString()} primary={user.login} />
+                  <ListItemText primary={user.login} />
                 </ListItemButton>
               </ListItem>
             );

@@ -5,7 +5,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Container from "@mui/material/Container";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import s from "./navbar.module.scss";
-import GitHubStore from "@/app/store.ts";
+import GitHubStore from "@/store/profile.ts";
 import { observer } from "mobx-react";
 import LinearProgress from "@mui/material/LinearProgress";
 

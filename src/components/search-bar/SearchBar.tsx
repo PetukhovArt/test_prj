@@ -4,23 +4,21 @@ import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useDebounce } from "use-debounce";
-import GitHubStore from "@/app/store.ts";
+import TeamStore from "@/store/team.ts";
 
 export const SearchBar = () => {
-  const { filterUsers, users } = GitHubStore;
+  const { filterUsers } = TeamStore;
   const [searchValue, setSearchValue] = useState<string>("");
-  const [debouncedValue] = useDebounce(searchValue, 500);
+  const [debouncedValue] = useDebounce(searchValue, 300);
   const changeSearchHandler = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     setSearchValue(e.target.value);
   };
 
-  // useEffect(() => {
-  //   if (users && users.length > 1) {
-  //     filterUsers(debouncedValue);
-  //   }
-  // }, [debouncedValue]);
+  useEffect(() => {
+    filterUsers(debouncedValue);
+  }, [debouncedValue]);
 
   return (
     <Paper

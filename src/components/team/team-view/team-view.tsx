@@ -1,6 +1,6 @@
-import GitHubStore from "@/app/store.ts";
 import { useState } from "react";
 import Grid from "@mui/material/Grid";
+import TeamStore from "@/store/team.ts";
 
 import { TransferButton } from "@/components/transfer-button";
 import { ListType, TeamList } from "@/components/team/team-view/team-list.tsx";
@@ -11,8 +11,15 @@ import { UsersList } from "../users-view";
 import { action } from "mobx";
 
 export const TeamView = observer(() => {
-  const { users, team, deleteUsers, addTeamUsers, deleteTeamUsers, addUsers } =
-    GitHubStore;
+  const {
+    users,
+    team,
+    deleteTeamUser,
+    deleteUsers,
+    addTeamUsers,
+    deleteTeamUsers,
+    addUsers,
+  } = TeamStore;
   const [checkedTeamUsersId, setCheckedTeamUsersId] = useState<number[]>([]);
   const [checkedFreeUsersId, setCheckedFreeUsersId] = useState<number[]>([]);
 
@@ -31,11 +38,9 @@ export const TeamView = observer(() => {
       }
     }
   };
-  // const deleteUserHandler = (userId: number, list: ListType) => {
-  //   if (list === "team") {
-  //     teamUserDelete(userId);
-  //   }
-  // };
+  const deleteUserHandler = action((userId: number) => {
+    deleteTeamUser(userId);
+  });
 
   const findNewUsers = (foundUsers: UserType[], usersColumn: UserType[]) => {
     let newUsers: UserType[] = [];
@@ -75,9 +80,9 @@ export const TeamView = observer(() => {
       <Grid container spacing={2} justifyContent="center" alignItems="center">
         <Grid item>
           <TeamList
+            deleteUserHandler={deleteUserHandler}
             list={"team"}
             setUserChecked={setUserChecked}
-            // deleteUserHandler={deleteUserHandler}
             checkedTeam={checkedTeamUsersId}
           />
         </Grid>
@@ -105,19 +110,3 @@ export const TeamView = observer(() => {
       </Grid>
     );
 });
-
-// const checkUserHandler = (userId: number, list: ListType) => () => {
-//   if (list === "team") {
-//     if (checkedTeam.includes(userId)) {
-//       setCheckedTeam(checkedTeam.filter((id) => id !== userId));
-//     } else {
-//       setCheckedTeam([...checkedTeam, userId]);
-//     }
-//   } else {
-//     if (checkedFreeUsers.includes(userId)) {
-//       setCheckedFreeUsers(checkedFreeUsers.filter((id) => id !== userId));
-//     } else {
-//       setCheckedFreeUsers([...checkedFreeUsers, userId]);
-//     }
-//   }
-// };

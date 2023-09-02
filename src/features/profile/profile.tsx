@@ -3,7 +3,7 @@ import s from "./profile.module.scss";
 import { FollowersView } from "@/components/profile/followers-list";
 import Typography from "@mui/material/Typography";
 import { observer } from "mobx-react";
-import GitHubStore from "@/app/store.ts";
+import GitHubStore from "@/store/profile.ts";
 import { formatDate } from "@/common/helpers/date-helper.ts";
 import CircularProgress from "@mui/material/CircularProgress";
 import { RepoView } from "@/components/profile/repos-view";

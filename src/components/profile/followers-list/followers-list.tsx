@@ -1,4 +1,4 @@
-import GitHubStore from "@/app/store.ts";
+import GitHubStore from "@/store/profile.ts";
 import { observer } from "mobx-react";
 import CircularProgress from "@mui/material/CircularProgress";
 import Link from "@mui/material/Link";

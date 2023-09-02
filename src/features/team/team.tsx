@@ -1,14 +1,14 @@
-import GitHubStore from "@/app/store.ts";
 import { useEffect } from "react";
 import { observer } from "mobx-react";
 import CircularProgress from "@mui/material/CircularProgress";
 import { TeamView } from "@/components/team/team-view";
 import { SearchBar } from "@/components/search-bar";
 import { UsersView } from "@/components/team/users-view";
-import Container from "@mui/material/Container";
+import TeamStore from "@/store/team.ts";
+import Grid from "@mui/material/Grid";
 
 export const Team = observer(() => {
-  const { getUsers, users } = GitHubStore;
+  const { getUsers, users } = TeamStore;
 
   useEffect(() => {
     if (users?.length === 0) {
@@ -20,17 +20,15 @@ export const Team = observer(() => {
     return <CircularProgress />;
   } else
     return (
-      <Container sx={{ display: "flex", gap: "10px", flexDirection: "column" }}>
-        {/*team : sort + delete funcs*/}
-        <SearchBar />
-        <TeamView />
-        <Container
-          sx={{ display: "flex", gap: "10px", flexDirection: "column" }}
-        >
+      <Grid container spacing={2}>
+        <Grid item xs={7}></Grid>
+        <Grid item xs={5}>
+          <SearchBar />
+        </Grid>
+        <Grid item xs={12}>
+          <TeamView />
           <UsersView />
-        </Container>
-        {/*search field : search for login in users*/}
-        {/*users , user : login , link to acc , avatar ; funcs : add to team*/}
-      </Container>
+        </Grid>
+      </Grid>
     );
 });

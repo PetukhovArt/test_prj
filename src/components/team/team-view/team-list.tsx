@@ -8,14 +8,14 @@ import ListItemText from "@mui/material/ListItemText";
 import Paper from "@mui/material/Paper";
 import ListItemButton from "@mui/material/ListItemButton";
 import { observer } from "mobx-react";
-import GitHubStore from "@/app/store.ts";
 import CircularProgress from "@mui/material/CircularProgress";
+import TeamStore from "@/store/team.ts";
 
 export type ListType = "team" | "users";
 
 type UsersListProps = {
   setUserChecked?: (userId: number, listType: ListType) => any;
-  deleteUserHandler?: (userId: number, listType: ListType) => any;
+  deleteUserHandler: (userId: number) => any;
   checkedTeam: readonly number[];
   list: ListType;
 };
@@ -26,31 +26,25 @@ export const TeamList = observer(
     deleteUserHandler,
     list,
   }: UsersListProps) => {
-    console.log("teamlist render");
-    const { team } = GitHubStore;
+    const { team } = TeamStore;
 
     if (!team) {
       return <CircularProgress />;
     } else
       return (
         <Paper sx={{ width: 320, height: 400, overflow: "auto" }}>
-          <List dense component="div" role="list">
+          <List>
             {team.map((user) => {
               return (
                 <ListItem
                   divider
                   key={user.id}
-                  role="listitem"
+                  disablePadding
                   secondaryAction={
-                    <IconButton
-                      edge="end"
-                      aria-label="comments"
-                      onClick={deleteUserHandler?.(user.id, list)}
-                    >
+                    <IconButton onClick={() => deleteUserHandler(user.id)}>
                       <Delete />
                     </IconButton>
                   }
-                  disablePadding
                 >
                   <ListItemButton
                     role={undefined}
@@ -60,14 +54,12 @@ export const TeamList = observer(
                     <ListItemIcon>
                       <Checkbox
                         checked={checkedTeam.indexOf(user.id) !== -1}
+                        onClick={setUserChecked?.(user.id, list)}
                         tabIndex={-1}
                         disableRipple
                       />
                     </ListItemIcon>
-                    <ListItemText
-                      id={user.id.toString()}
-                      primary={user.login}
-                    />
+                    <ListItemText primary={user.login} />
                   </ListItemButton>
                 </ListItem>
               );

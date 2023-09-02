@@ -1,4 +1,4 @@
-import GitHubStore from "@/app/store.ts";
+import GitHubStore from "@/store/profile.ts";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import { formatDate } from "@/common/helpers/date-helper.ts";

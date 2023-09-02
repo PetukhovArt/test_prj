@@ -1,7 +1,7 @@
 import List from "@mui/material/List";
 import ListSubheader from "@mui/material/ListSubheader";
 import { observer } from "mobx-react";
-import GitHubStore from "@/app/store.ts";
+import GitHubStore from "@/store/profile.ts";
 import CircularProgress from "@mui/material/CircularProgress";
 import { FollowersList } from "@/components/profile/followers-list/followers-list.tsx";
 export const FollowersView = observer(() => {
