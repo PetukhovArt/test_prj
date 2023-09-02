@@ -1,11 +1,8 @@
 import { useEffect } from "react";
 import { observer } from "mobx-react";
 import CircularProgress from "@mui/material/CircularProgress";
-import { TeamView } from "@/components/team/team-view";
-import { SearchBar } from "@/components/search-bar";
-import { UsersView } from "@/components/team/users-view";
-import TeamStore from "@/store/team.ts";
-import Grid from "@mui/material/Grid";
+import { TeamView } from "@/components/team";
+import TeamStore from "@/store/team.store.ts";
 
 export const Team = observer(() => {
   const { getUsers, users } = TeamStore;
@@ -18,17 +15,5 @@ export const Team = observer(() => {
 
   if (!users) {
     return <CircularProgress />;
-  } else
-    return (
-      <Grid container spacing={2}>
-        <Grid item xs={7}></Grid>
-        <Grid item xs={5}>
-          <SearchBar />
-        </Grid>
-        <Grid item xs={12}>
-          <TeamView />
-          <UsersView />
-        </Grid>
-      </Grid>
-    );
+  } else return <TeamView />;
 });

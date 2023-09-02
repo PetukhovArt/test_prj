@@ -2,10 +2,9 @@ import { NavLink, Outlet } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import Container from "@mui/material/Container";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import s from "./navbar.module.scss";
-import GitHubStore from "@/store/profile.ts";
+import GitHubStore from "@/store/profile.store.ts";
 import { observer } from "mobx-react";
 import LinearProgress from "@mui/material/LinearProgress";
 
@@ -15,8 +14,8 @@ export const Navbar = observer(() => {
   return (
     <Box>
       <AppBar position="fixed">
-        <Toolbar>
-          <Breadcrumbs aria-label="breadcrumb">
+        <Toolbar variant={"dense"} className={s.toolBar}>
+          <Breadcrumbs>
             <NavLink
               to={"/profile"}
               className={({ isActive }) => (isActive ? s.active : s.link)}
@@ -33,9 +32,9 @@ export const Navbar = observer(() => {
         </Toolbar>
         {state === "pending" && <LinearProgress />}
       </AppBar>
-      <Container maxWidth={"xl"} className={s.contentBox}>
+      <div className={s.main}>
         <Outlet />
-      </Container>
+      </div>
     </Box>
   );
 });

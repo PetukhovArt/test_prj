@@ -1,0 +1,16 @@
+@import "@/styles/mixins";
+
+.container {
+  max-width: 1000px;
+}
+.cell {
+  background-color: var(--color-accent-100);
+}
+
+//@include flex-block($gap: 10px, $align-items: unset);
+
+@media (max-width: 768px) {
+}
+
+@media (max-width: 480px) {
+}

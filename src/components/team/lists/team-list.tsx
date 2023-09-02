@@ -9,32 +9,55 @@ import Paper from "@mui/material/Paper";
 import ListItemButton from "@mui/material/ListItemButton";
 import { observer } from "mobx-react";
 import CircularProgress from "@mui/material/CircularProgress";
-import TeamStore from "@/store/team.ts";
+import TeamStore from "@/store/team.store.ts";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import Avatar from "@mui/material/Avatar";
+import TableSortLabel from "@mui/material/TableSortLabel";
+import { useState } from "react";
+import s from "./list.module.scss";
 
 export type ListType = "team" | "users";
 
 type UsersListProps = {
   setUserChecked?: (userId: number, listType: ListType) => any;
   deleteUserHandler: (userId: number) => any;
-  checkedTeam: readonly number[];
+  checkedTeamIdData: readonly number[];
   list: ListType;
 };
 export const TeamList = observer(
   ({
-    checkedTeam,
+    checkedTeamIdData,
     setUserChecked,
     deleteUserHandler,
     list,
   }: UsersListProps) => {
-    const { team } = TeamStore;
+    const { team, teamSort } = TeamStore;
+    const [direction, setDirection] = useState<boolean>(false);
+    const [isHovered, setIsHovered] = useState<boolean>(false);
+    const onClickSortHandler = () => {
+      setDirection(!direction);
+    };
 
     if (!team) {
       return <CircularProgress />;
     } else
       return (
-        <Paper sx={{ width: 320, height: 400, overflow: "auto" }}>
+        <Paper className={s.paper}>
+          <ListItemButton
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            className={s.sortButton}
+            onClick={onClickSortHandler}
+          >
+            Click here to sort
+            <TableSortLabel
+              hideSortIcon={!isHovered}
+              active={isHovered}
+              direction={direction ? "desc" : "asc"}
+            />
+          </ListItemButton>
           <List>
-            {team.map((user) => {
+            {teamSort(direction).map((user) => {
               return (
                 <ListItem
                   divider
@@ -53,13 +76,16 @@ export const TeamList = observer(
                   >
                     <ListItemIcon>
                       <Checkbox
-                        checked={checkedTeam.indexOf(user.id) !== -1}
+                        checked={checkedTeamIdData.indexOf(user.id) !== -1}
                         onClick={setUserChecked?.(user.id, list)}
                         tabIndex={-1}
                         disableRipple
                       />
                     </ListItemIcon>
-                    <ListItemText primary={user.login} />
+                    <ListItemAvatar>
+                      <Avatar alt="avatar" src={user.avatar_url} />
+                    </ListItemAvatar>
+                    <ListItemText>{user.login}</ListItemText>
                   </ListItemButton>
                 </ListItem>
               );

@@ -1,4 +1,4 @@
-import GitHubStore from "@/store/profile.ts";
+import GitHubStore from "@/store/profile.store.ts";
 import { observer } from "mobx-react";
 import CircularProgress from "@mui/material/CircularProgress";
 import Link from "@mui/material/Link";
@@ -17,7 +17,7 @@ export const FollowersList = observer(() => {
         {following.map((item) => (
           <ListItem key={item.login}>
             <ListItemAvatar>
-              <Avatar alt="Remy Sharp" src={item.avatar_url} />
+              <Avatar alt="avatar" src={item.avatar_url} />
             </ListItemAvatar>
             <Link href={item.html_url} underline="hover">
               <ListItemText primary={item.login} />

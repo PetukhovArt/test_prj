@@ -1,11 +1,11 @@
-import GitHubStore from "@/store/profile.ts";
+import GitHubStore from "@/store/profile.store.ts";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import { formatDate } from "@/common/helpers/date-helper.ts";
 import { observer } from "mobx-react";
 import CircularProgress from "@mui/material/CircularProgress";
 import Link from "@mui/material/Link";
-import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+
 export const ReposList = observer(() => {
   const { repos } = GitHubStore;
 
@@ -19,21 +19,21 @@ export const ReposList = observer(() => {
             key={repo.name}
             sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
           >
-            <TableCell component="th" scope="row">
+            <TableCell align="right">
               <Link href={repo.svn_url} underline="hover">
                 {repo.name}
               </Link>
             </TableCell>
-            <TableCell align="left">
-              {repo.description ? (
-                repo.description
-              ) : (
-                <RemoveCircleOutlineIcon />
-              )}
+            <TableCell align="right">
+              {repo.description ? repo.description : "-"}
             </TableCell>
-            <TableCell align="left">{repo.language}</TableCell>
-            <TableCell align="left">{formatDate(repo.created_at)}</TableCell>
-            <TableCell align="left">{repo.clone_url}</TableCell>
+            <TableCell align="right">{repo.language}</TableCell>
+            <TableCell align="right">{formatDate(repo.created_at)}</TableCell>
+            <TableCell align="right">
+              <Link href={repo.clone_url} underline="hover">
+                Copy link to clone
+              </Link>
+            </TableCell>
           </TableRow>
         ))}
       </>

@@ -6,9 +6,6 @@ class ProfileStore {
   profile: ProfileType | null = null;
   following: UserType[] = [];
   repos: ReposType[] = [];
-  // users: UserType[] = [];
-  // team: UserType[] = [];
-  languages = null;
   state: "done" | "pending" | "error" = "done";
 
   constructor() {
@@ -58,29 +55,18 @@ class ProfileStore {
       });
     }
   };
-  getRepoLanguages = async (repoName: string) => {
-    try {
-      this.state = "pending";
-
-      const res = await API.fetchRepoLanguages(repoName);
-
-      runInAction(() => {
-        this.languages = res.data;
-        this.state = "done";
-      });
-    } catch (e) {
-      runInAction(() => {
-        this.state = "error";
-      });
-    }
-  };
 }
-//   getUsers = async () => {
+
+export default new ProfileStore();
+
+// getRepoLanguages = async (repoName: string) => {
 //     try {
 //       this.state = "pending";
-//       const res = await API.fetchUsers();
+//
+//       const res = await API.fetchRepoLanguages(repoName);
+//
 //       runInAction(() => {
-//         this.users = res.data;
+//         this.languages = res.data;
 //         this.state = "done";
 //       });
 //     } catch (e) {
@@ -89,34 +75,4 @@ class ProfileStore {
 //       });
 //     }
 //   };
-//   filterUsers(value: string) {
-//     this.users = this.users.filter((user) =>
-//       user.login.toLowerCase().includes(value.toLowerCase()),
-//     );
-//   }
-//   addTeamUsers = (newUsers: UserType[]) => {
-//     this.team = [...newUsers, ...this.team];
-//   };
-//   deleteUsers = (newUsers: UserType[]) => {
-//     this.users = this.users.filter((user) => !newUsers.includes(user));
-//   };
-//   addUsers = (newUsers: UserType[]) => {
-//     this.users = [...newUsers, ...this.users];
-//   };
-//   deleteTeamUser = (id: number) => {
-//     const index = this.team.findIndex((user) => user.id === id);
-//
-//     if (index === -1) {
-//       return;
-//     }
-//     this.team.splice(index, 1);
-//   };
-//   deleteTeamUsers = (newUsers: UserType[]) => {
-//     this.team = this.team.filter((user) => !newUsers.includes(user));
-//   };
-//   teamSort = () => {
-//     this.team = this.team.sort((a, b) => a.login.localeCompare(b.login));
-//   };
 // }
-
-export default new ProfileStore();

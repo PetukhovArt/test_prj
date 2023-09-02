@@ -3,13 +3,17 @@
 🚧 For Vipax 🚧
 
 ## Installation
+
 ```sh
-pnpm i 
+pnpm i
 ```
+
 ## Usage
+
 ```sh
 pnpm dev
 ```
+
 ---
 
-Made with:  Create Vite
+Made with: Create Vite

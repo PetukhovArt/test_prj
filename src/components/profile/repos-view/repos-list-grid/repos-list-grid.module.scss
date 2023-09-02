@@ -1,0 +1,22 @@
+@import "@/styles/mixins";
+
+.grid {
+  @include flex-block();
+  .card {
+    width: 300px;
+    height: 190px;
+    position: relative;
+    .footer {
+      position: absolute;
+      bottom: 16px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .card {
+    width: 200px;
+  }
+}
+@media (max-width: 480px) {
+}

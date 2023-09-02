@@ -1,0 +1,17 @@
+@import "@/styles/mixins";
+
+.paper {
+  width: 300px;
+  height: 515px;
+  overflow: auto;
+  .sortButton {
+    justify-content: center;
+    height: 48px;
+  }
+}
+
+@media (max-width: 768px) {
+  .paper {
+    height: 460px;
+  }
+}

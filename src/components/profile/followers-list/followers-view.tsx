@@ -1,9 +1,11 @@
 import List from "@mui/material/List";
 import ListSubheader from "@mui/material/ListSubheader";
 import { observer } from "mobx-react";
-import GitHubStore from "@/store/profile.ts";
+import GitHubStore from "@/store/profile.store.ts";
 import CircularProgress from "@mui/material/CircularProgress";
-import { FollowersList } from "@/components/profile/followers-list/followers-list.tsx";
+import { FollowersList } from "./followers-list";
+import s from "./followers.module.scss";
+
 export const FollowersView = observer(() => {
   const { following } = GitHubStore;
   if (!following) {
@@ -11,15 +13,9 @@ export const FollowersView = observer(() => {
   } else
     return (
       <List
+        className={s.list}
         sx={{
-          borderRadius: "4px",
-          width: "100%",
-          maxWidth: 320,
           bgcolor: "background.paper",
-          position: "relative",
-          overflow: "auto",
-          height: 300,
-          "& ul": { padding: 0 },
         }}
         subheader={<li />}
       >

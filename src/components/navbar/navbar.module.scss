@@ -1,16 +1,19 @@
 @import "@/styles/mixins";
 
-.link {
-  color: var(--color-dark-600);
-  text-decoration: none;
+.toolBar {
+  justify-content: center;
+  .link {
+    color: var(--color-dark-600);
+    text-decoration: none;
+  }
+  .active {
+    color: var(--color-light-100);
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.3s;
+  }
 }
-.active {
-  color: var(--color-light-100);
-  font-weight: bold;
-  text-decoration: none;
-  transition: 0.3s;
-}
-.contentBox {
-  margin-top: 80px;
-  height: calc(100vh - 64px);
+.main {
+  margin-top: 55px;
+  //height: calc(100vh - 64px);
 }

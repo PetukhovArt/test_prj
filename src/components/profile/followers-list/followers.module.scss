@@ -1,0 +1,26 @@
+@import "@/styles/mixins";
+
+.list {
+  border-radius: 4px;
+  width: 300px;
+  position: relative;
+  overflow: auto;
+  height: 330px;
+  ul {
+    padding: 0;
+  }
+  box-shadow:
+    0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+}
+@media (max-width: 768px) {
+  .list {
+    width: 230px;
+  }
+}
+@media (max-width: 480px) {
+  .list {
+    width: 300px;
+  }
+}
