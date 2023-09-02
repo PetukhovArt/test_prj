@@ -1,6 +1,6 @@
 import { observer } from "mobx-react";
 import Card from "@mui/material/Card";
-import s from "./user-card.module.scss";
+import s from "src/components/profile/user-card/user-card.module.scss";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
