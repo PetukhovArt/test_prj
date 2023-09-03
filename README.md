@@ -1,10 +1,10 @@
 # 🚧 For Vipax 🚧
 
-JS library: React 18.2.0
-UI Framework : Material UI
-Routing: React Router 6.14.2
-Stores : Mobx 6.10.2
-Adaptive resolutions :  < 768px
+*JS library: React 18.2.0
+*UI Framework : Material UI
+*Routing: React Router 6.14.2
+*Stores : Mobx 6.10.2
+*Adaptive resolutions :  < 768px
 
 ## Installation
 
