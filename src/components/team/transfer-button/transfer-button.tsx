@@ -13,7 +13,7 @@ export const TransferButton = ({
 }: TransferButtonProps) => {
   return (
     <Button
-      sx={{ my: 0.5 }}
+      sx={{ my: 0.5, mb: 1.5 }}
       variant="contained"
       size="small"
       onClick={onClick}

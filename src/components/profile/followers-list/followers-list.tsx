@@ -19,7 +19,12 @@ export const FollowersList = observer(() => {
             <ListItemAvatar>
               <Avatar alt="avatar" src={item.avatar_url} />
             </ListItemAvatar>
-            <Link href={item.html_url} underline="hover">
+            <Link
+              href={item.html_url}
+              underline="hover"
+              target="_blank"
+              rel="noopener"
+            >
               <ListItemText primary={item.login} />
             </Link>
           </ListItem>

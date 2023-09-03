@@ -20,7 +20,12 @@ export const ReposList = observer(() => {
             sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
           >
             <TableCell align="right">
-              <Link href={repo.svn_url} underline="hover">
+              <Link
+                href={repo.svn_url}
+                underline="hover"
+                target="_blank"
+                rel="noopener"
+              >
                 {repo.name}
               </Link>
             </TableCell>
@@ -30,7 +35,12 @@ export const ReposList = observer(() => {
             <TableCell align="right">{repo.language}</TableCell>
             <TableCell align="right">{formatDate(repo.created_at)}</TableCell>
             <TableCell align="right">
-              <Link href={repo.clone_url} underline="hover">
+              <Link
+                href={repo.clone_url}
+                underline="hover"
+                target="_blank"
+                rel="noopener"
+              >
                 Copy link to clone
               </Link>
             </TableCell>

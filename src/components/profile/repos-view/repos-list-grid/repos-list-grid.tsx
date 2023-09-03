@@ -19,7 +19,7 @@ export const ReposListGrid = observer(() => {
   } else
     return (
       <>
-        <Grid container spacing={2}>
+        <Grid container spacing={1}>
           {repos.map((repo) => (
             <Grid
               item

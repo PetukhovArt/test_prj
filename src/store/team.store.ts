@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 import { API } from "@/api";
 import { UserType } from "@/api/api.types.ts";
 import { fetchData } from "@/common/helpers";
@@ -13,10 +13,10 @@ class TeamStore {
   }
 
   getUsers = async () => {
-    this.users = await fetchData(this, API.fetchUsers);
+    const users = await fetchData(this, API.fetchUsers);
+    runInAction(() => (this.users = users));
   };
-
-  get filterUsers() {
+  get filteredUsers() {
     return (value: string) => {
       if (value !== "") {
         return this.users.filter((user) =>

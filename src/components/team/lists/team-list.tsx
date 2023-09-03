@@ -34,21 +34,20 @@ export const TeamList = observer(
     const { team, teamSort } = TeamStore;
     const [direction, setDirection] = useState<boolean>(false);
     const [isHovered, setIsHovered] = useState<boolean>(false);
-    const onClickSortHandler = () => {
-      setDirection(!direction);
-    };
+    const notEmpty = teamSort(direction).length > 0;
+    const isSortable = teamSort(direction).length > 1;
 
     if (!team) {
       return <CircularProgress />;
     } else
       return (
         <Paper className={s.paper}>
-          {teamSort(direction).length > 1 && (
+          {isSortable && (
             <ListItemButton
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
               className={s.sortButton}
-              onClick={onClickSortHandler}
+              onClick={() => setDirection(!direction)}
             >
               Click here to sort
               <TableSortLabel
@@ -60,7 +59,7 @@ export const TeamList = observer(
           )}
 
           <List>
-            {teamSort(direction).length > 0 ? (
+            {notEmpty ? (
               teamSort(direction).map((user) => {
                 return (
                   <ListItem
@@ -87,7 +86,9 @@ export const TeamList = observer(
                       <ListItemAvatar>
                         <Avatar alt="avatar" src={user.avatar_url} />
                       </ListItemAvatar>
-                      <ListItemText>{user.login}</ListItemText>
+                      <ListItemText className={s.loginName}>
+                        {user.login}
+                      </ListItemText>
                     </ListItemButton>
                   </ListItem>
                 );

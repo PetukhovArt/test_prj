@@ -13,6 +13,7 @@ import Link from "@mui/material/Link";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import s from "./list.module.scss";
+import ListItemText from "@mui/material/ListItemText";
 
 export type ListType = "team" | "users";
 
@@ -23,46 +24,56 @@ type UsersListProps = {
 };
 export const UsersList = observer(
   ({ checkedFreeUsers, setUserChecked, list }: UsersListProps) => {
-    const { filterUsers } = TeamStore;
+    const { filteredUsers } = TeamStore;
     const [searchValue, setSearchValue] = useState<string>("");
     const [debouncedValue] = useDebounce(searchValue, 300);
-
+    const notEmpty = filteredUsers(debouncedValue).length > 0;
     return (
       <Paper className={s.paper}>
         <SearchBar setSearchValue={setSearchValue} />
         <List>
-          {filterUsers(debouncedValue).map((user) => {
-            return (
-              <ListItem
-                alignItems="flex-start"
-                divider
-                key={user.id}
-                disablePadding
-                secondaryAction={
-                  <Link href={user.html_url} underline="hover">
-                    {user.login}
-                  </Link>
-                }
-              >
-                <ListItemButton
-                  role={undefined}
-                  onClick={setUserChecked(user.id, list)}
-                  dense
+          {notEmpty ? (
+            filteredUsers(debouncedValue).map((user) => {
+              return (
+                <ListItem
+                  alignItems="flex-start"
+                  key={user.id}
+                  disablePadding
+                  secondaryAction={
+                    <Link
+                      href={user.html_url}
+                      underline="hover"
+                      target="_blank"
+                      rel="noopener"
+                    >
+                      {user.login}
+                    </Link>
+                  }
                 >
-                  <ListItemIcon>
-                    <Checkbox
-                      checked={checkedFreeUsers.indexOf(user.id) !== -1}
-                      tabIndex={-1}
-                      disableRipple
-                    />
-                  </ListItemIcon>
-                  <ListItemAvatar>
-                    <Avatar alt="avatar" src={user.avatar_url} />
-                  </ListItemAvatar>
-                </ListItemButton>
-              </ListItem>
-            );
-          })}
+                  <ListItemButton
+                    role={undefined}
+                    onClick={setUserChecked(user.id, list)}
+                    dense
+                  >
+                    <ListItemIcon>
+                      <Checkbox
+                        checked={checkedFreeUsers.indexOf(user.id) !== -1}
+                        tabIndex={-1}
+                        disableRipple
+                      />
+                    </ListItemIcon>
+                    <ListItemAvatar>
+                      <Avatar alt="avatar" src={user.avatar_url} />
+                    </ListItemAvatar>
+                  </ListItemButton>
+                </ListItem>
+              );
+            })
+          ) : (
+            <ListItem>
+              <ListItemText className={s.emptyText}>No free users</ListItemText>
+            </ListItem>
+          )}
         </List>
       </Paper>
     );

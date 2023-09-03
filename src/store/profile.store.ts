@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 import { API } from "@/api";
 import { ProfileType, ReposType, UserType } from "@/api/api.types.ts";
 import { fetchData } from "@/common/helpers";
@@ -14,15 +14,18 @@ class ProfileStore {
   }
 
   getProfile = async () => {
-    this.profile = await fetchData(this, API.fetchProfile);
+    const profile = await fetchData(this, API.fetchProfile);
+    runInAction(() => (this.profile = profile));
   };
 
   getUserRepos = async () => {
-    this.repos = await fetchData(this, API.fetchUserRepos);
+    const repos = await fetchData(this, API.fetchUserRepos);
+    runInAction(() => (this.repos = repos));
   };
 
   getFollowing = async () => {
-    this.following = await fetchData(this, API.fetchFollowing);
+    const following = await fetchData(this, API.fetchFollowing);
+    runInAction(() => (this.following = following));
   };
 }
 

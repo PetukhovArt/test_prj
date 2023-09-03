@@ -5,10 +5,10 @@ import { TeamView } from "@/components/team";
 import TeamStore from "@/store/team.store.ts";
 
 export const Team = observer(() => {
-  const { getUsers, users } = TeamStore;
+  const { getUsers, users, team } = TeamStore;
 
   useEffect(() => {
-    if (users?.length === 0) {
+    if (users?.length === 0 && team?.length === 0) {
       getUsers();
     }
   }, [users]);

@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { UserCard } from "@/components/profile/user-card";
 export const Profile = observer(() => {
   const { getProfile, getFollowing, getUserRepos, profile } = ProfileStore;
+
   useEffect(() => {
     if (!profile) {
       getProfile();

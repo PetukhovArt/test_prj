@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -10,7 +10,7 @@ import LinearProgress from "@mui/material/LinearProgress";
 
 export const Navbar = observer(() => {
   const { state } = GitHubStore;
-
+  const location = useLocation();
   return (
     <Box>
       <AppBar position="fixed">
@@ -18,7 +18,13 @@ export const Navbar = observer(() => {
           <Breadcrumbs>
             <NavLink
               to={"/profile"}
-              className={({ isActive }) => (isActive ? s.active : s.link)}
+              className={({ isActive }) =>
+                location.pathname === "/"
+                  ? s.active
+                  : isActive
+                  ? s.active
+                  : s.link
+              }
             >
               Profile
             </NavLink>
