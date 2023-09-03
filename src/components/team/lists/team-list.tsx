@@ -43,53 +43,62 @@ export const TeamList = observer(
     } else
       return (
         <Paper className={s.paper}>
-          <ListItemButton
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            className={s.sortButton}
-            onClick={onClickSortHandler}
-          >
-            Click here to sort
-            <TableSortLabel
-              hideSortIcon={!isHovered}
-              active={isHovered}
-              direction={direction ? "desc" : "asc"}
-            />
-          </ListItemButton>
+          {teamSort(direction).length > 1 && (
+            <ListItemButton
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+              className={s.sortButton}
+              onClick={onClickSortHandler}
+            >
+              Click here to sort
+              <TableSortLabel
+                hideSortIcon={!isHovered}
+                active={isHovered}
+                direction={direction ? "desc" : "asc"}
+              />
+            </ListItemButton>
+          )}
+
           <List>
-            {teamSort(direction).map((user) => {
-              return (
-                <ListItem
-                  divider
-                  key={user.id}
-                  disablePadding
-                  secondaryAction={
-                    <IconButton onClick={() => deleteUserHandler(user.id)}>
-                      <Delete />
-                    </IconButton>
-                  }
-                >
-                  <ListItemButton
-                    role={undefined}
-                    onClick={setUserChecked?.(user.id, list)}
-                    dense
+            {teamSort(direction).length > 0 ? (
+              teamSort(direction).map((user) => {
+                return (
+                  <ListItem
+                    key={user.id}
+                    disablePadding
+                    secondaryAction={
+                      <IconButton onClick={() => deleteUserHandler(user.id)}>
+                        <Delete />
+                      </IconButton>
+                    }
                   >
-                    <ListItemIcon>
-                      <Checkbox
-                        checked={checkedTeamIdData.indexOf(user.id) !== -1}
-                        onClick={setUserChecked?.(user.id, list)}
-                        tabIndex={-1}
-                        disableRipple
-                      />
-                    </ListItemIcon>
-                    <ListItemAvatar>
-                      <Avatar alt="avatar" src={user.avatar_url} />
-                    </ListItemAvatar>
-                    <ListItemText>{user.login}</ListItemText>
-                  </ListItemButton>
-                </ListItem>
-              );
-            })}
+                    <ListItemButton
+                      role={undefined}
+                      onClick={setUserChecked?.(user.id, list)}
+                      dense
+                    >
+                      <ListItemIcon>
+                        <Checkbox
+                          checked={checkedTeamIdData.indexOf(user.id) !== -1}
+                          tabIndex={-1}
+                          disableRipple
+                        />
+                      </ListItemIcon>
+                      <ListItemAvatar>
+                        <Avatar alt="avatar" src={user.avatar_url} />
+                      </ListItemAvatar>
+                      <ListItemText>{user.login}</ListItemText>
+                    </ListItemButton>
+                  </ListItem>
+                );
+              })
+            ) : (
+              <ListItem>
+                <ListItemText className={s.emptyText}>
+                  Team is empty
+                </ListItemText>
+              </ListItem>
+            )}
           </List>
         </Paper>
       );

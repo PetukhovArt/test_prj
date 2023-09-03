@@ -1,7 +1,6 @@
 @import "@/styles/mixins";
 
 .container {
-  padding: 0 5px;
   @include flex-block($gap: 10px, $align-items: center);
   .about {
     @include flex-block($flex-direction: row, $gap: 20px);
