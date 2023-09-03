@@ -18,7 +18,7 @@ export const API = {
   fetchUsers() {
     return instance.get<UserType[]>("users?since=50000000");
   },
-  fetchRepoLanguages(repoName: string) {
-    return instance.get<any>(`repos/${user}/${repoName}/languages`);
-  },
+  // fetchRepoLanguages(repoName: string) {
+  //   return instance.get<any>(`repos/${user}/${repoName}/languages`);
+  // },
 };

@@ -33,7 +33,7 @@ export const RepoView = observer(() => {
         {isLandScape ? (
           <>
             <Typography variant="h5" component="div">
-              User repo's
+              User repo's :
             </Typography>
             <ReposListGrid />
           </>

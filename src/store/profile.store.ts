@@ -1,6 +1,7 @@
-import { makeAutoObservable, runInAction } from "mobx";
+import { makeAutoObservable } from "mobx";
 import { API } from "@/api";
 import { ProfileType, ReposType, UserType } from "@/api/api.types.ts";
+import { fetchData } from "@/common/helpers";
 
 class ProfileStore {
   profile: ProfileType | null = null;
@@ -13,66 +14,16 @@ class ProfileStore {
   }
 
   getProfile = async () => {
-    try {
-      this.state = "pending";
-      const res = await API.fetchProfile();
-      runInAction(() => {
-        this.profile = res.data;
-        this.state = "done";
-      });
-    } catch (e) {
-      runInAction(() => {
-        this.state = "error";
-      });
-    }
+    this.profile = await fetchData(this, API.fetchProfile);
   };
-  getUserRepos = async () => {
-    try {
-      this.state = "pending";
-      const res = await API.fetchUserRepos();
-      runInAction(() => {
-        this.repos = res.data;
-        this.state = "done";
-      });
-    } catch (e) {
-      runInAction(() => {
-        this.state = "error";
-      });
-    }
-  };
-  getFollowing = async () => {
-    try {
-      this.state = "pending";
 
-      const res = await API.fetchFollowing();
-      runInAction(() => {
-        this.following = res.data;
-        this.state = "done";
-      });
-    } catch (e) {
-      runInAction(() => {
-        this.state = "error";
-      });
-    }
+  getUserRepos = async () => {
+    this.repos = await fetchData(this, API.fetchUserRepos);
+  };
+
+  getFollowing = async () => {
+    this.following = await fetchData(this, API.fetchFollowing);
   };
 }
 
 export default new ProfileStore();
-
-// getRepoLanguages = async (repoName: string) => {
-//     try {
-//       this.state = "pending";
-//
-//       const res = await API.fetchRepoLanguages(repoName);
-//
-//       runInAction(() => {
-//         this.languages = res.data;
-//         this.state = "done";
-//       });
-//     } catch (e) {
-//       runInAction(() => {
-//         this.state = "error";
-//       });
-//     }
-//   };
-// }

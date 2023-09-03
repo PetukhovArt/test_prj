@@ -22,6 +22,7 @@ export const Navbar = observer(() => {
             >
               Profile
             </NavLink>
+
             <NavLink
               to={"/team"}
               className={({ isActive }) => (isActive ? s.active : s.link)}
