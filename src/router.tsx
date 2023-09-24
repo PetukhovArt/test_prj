@@ -1,3 +1,4 @@
+import {TestForm} from '@/features/form';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Profile } from "@/features/profile";
 import { Team } from "@/features/team";
@@ -19,6 +20,10 @@ export const router = createBrowserRouter([
       {
         path: "team",
         element: <Team />,
+      },
+      {
+        path: "form",
+        element: <TestForm />,
       },
       {
         path: "*",

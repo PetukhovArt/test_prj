@@ -35,6 +35,12 @@ export const Navbar = observer(() => {
             >
               Team
             </NavLink>
+            <NavLink
+              to={"/form"}
+              className={({ isActive }) => (isActive ? s.active : s.link)}
+            >
+              Form
+            </NavLink>
           </Breadcrumbs>
         </Toolbar>
         {state === "pending" && <LinearProgress />}
